@@ -9,40 +9,38 @@ export function CardConta({ amount = 0.0, ...props }) {
 
 	const [receita, setReceita] = useState("");
     const [gasto, setGasto] = useState("");
+	const [saldo, setSaldo] = useState("");
 
 	const saveValor = async () => {
 
 		const valor = {
 			gasto: gasto,
-			receita: receita
+			receita: receita,
+			saldo: saldo
 			
 		}
-		await asyncStorageSave(valor);
-	   
-		
-	} 
+		await asyncStorageSave(saveValor);
 
-	 function calcular (receita, gasto) {
-
-		const saldo= receita - gasto;
-
-		setSaldo(integer.parse(saldo));
-
-	  	
-
+			
 	}
-	const [saldo, setSaldo] = useState("");
+	function calcular (receita, gasto) {
 
-   const asyncStorageSave = async (valor) => {
-	try {
-		
-		await AsyncStorage.setItem('valor', JSON.stringify(valor));
-		console.log('salvou no asyncstorage');
-	} catch (error) {
-		
-		console.log('erro ao salvar no asyncstorage');
-	}
+		saldo= receita - gasto;
+
 }
+
+	
+   async function asyncStorageSave(saldo) {
+		try {
+
+			await AsyncStorage.setItem('saldo', JSON.stringify(saldo));
+			console.log('salvou no asyncstorage');
+		} catch (error) {
+
+			console.log('erro ao salvar no asyncstorage');
+		}
+
+	}
 
 	return (
 
@@ -145,4 +143,4 @@ const styles = StyleSheet.create({
 	 
 	  
 	
-}) 
+})
